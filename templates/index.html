@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+<div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirmation Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            By clicking <strong id="actionText">"Delete"</strong>, you agree to <strong id="smactionText">delete</strong> this list. <br/> To close the window, click "Close".
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a href="#" class="btn btn-danger" id="delete-confirm-btn">Delete</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% if message %}
+<div class="my-2 alert alert-{{ messageType }} alert-dismissible fade show" role="alert" style="width: 30rem; margin: 0 auto;">
+        {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+<div class="card mt-4" style="width: 30rem; margin: 0 auto;">
+    <ul class="list-group list-group-flush">
+        {% for list in lists %}
+            <li class="list-group-item">
+                <a href="/items?listid={{ list.id }}">{{ list.title }}</a>
+                <a href="?action=delete&type=list&id={{ list.id }}" class="badge badge-danger mx-1 float-right" data-toggle="modal" data-target="#popupModal">Delete</a>
+                <a href="?action=clear&type=list&id={{ list.id }}" class="badge badge-warning mx-1 float-right" data-toggle="modal" data-target="#popupModal">Clear</a>
+                <a href="/edit?type=list&id={{ list.id }}" class="badge badge-info mx-1 float-right">Rename</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% load static %}
+<script src="{% static 'js/main.js' %}"></script>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="input-group mb-3 mt-4" style="width: 30rem; margin: 0 auto;">
+        <input type="text" name="list-name" class="form-control" placeholder="Enter a new list name" aria-label="Enter a new list name" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <input class="btn btn-success" type="submit" name="list-create" value="Create">
+        </div>
+    </div>
+</form>
+
+</div>
+
+{% endblock %}

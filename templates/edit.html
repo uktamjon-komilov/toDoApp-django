@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card mt-5" style="width: 30rem; margin: 0 auto;">
+  <div class="card-body">
+    <h5 class="card-title">Change the list name</h5>
+    <form action="/" method="POST" name="editForm">
+    {% csrf_token %}
+        <p class="card-text">
+            <div class="form-group">
+                <label for="listName">New list name</label>
+                <input type="text" class="form-control" name="listName" placeholder="New list name" value="{{ listname }}">
+                <input type="hidden" value="{{ id }}" name="listid">
+            </div>
+        </p>
+        <button type="submit" name="edit-submit" class="btn btn-outline-success float-right">Save changes</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

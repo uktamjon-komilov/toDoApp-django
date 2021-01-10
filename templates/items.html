@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-6">
+
+      {% if message %}
+      <div class="my-2 alert alert-{{ messageType }} alert-dismissible fade show" role="alert"
+        style="width: 30rem; margin: 0 auto;">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %}
+
+      {% for item in items %}
+      <div class="input-group my-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" aria-label="Check item if it is done" {% if item.status==True %} {{ checked }} {%
+              endif %}>
+          </div>
+        </div>
+        <input type="text" class="form-control" aria-label="Item with a checkbox" readonly value="{{ item.task }}">
+      </div>
+      {% endfor %}
+
+      <form action="" method="post" name="addItem">
+        {% csrf_token %}
+        <div class="input-group my-2">
+          <input type="text" class="form-control" placeholder="Enter a new item to the list"
+            aria-label="Enter a new item to the list" aria-describedby="basic-addon2" name="newItemName">
+          <div class="input-group-append">
+            <button class="btn btn-success" type="submit">Add</button>
+          </div>
+        </div>
+      </form>
+
+      <a href="#" class="btn btn-outline-primary my-2 float-right">Save Changes</a>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
