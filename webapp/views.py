@@ -52,6 +52,7 @@ def itemsView(request):
     listType = models.List.objects.get(id=listId)
 
     content = {}
+    content["listname"] = listType
     content["items"] = models.Item.objects.filter(type=listType)
 
     print(request.POST)
