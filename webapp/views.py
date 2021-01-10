@@ -53,6 +53,8 @@ def itemsView(request):
 
     content = {}
 
+    print(request.POST)
+
     if "newItemName" in request.POST:
         newItemName = request.POST["newItemName"]
         if newItemName != "":
@@ -62,6 +64,9 @@ def itemsView(request):
         else:
             content["message"] = "The item can't be empty!"
             content["messageType"] = "warning"
+
+    if "saveItems" in request.POST:
+        pass
 
     content["items"] = models.Item.objects.filter(type=listType)
 
