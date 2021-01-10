@@ -27,7 +27,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">
               <input type="checkbox" name="c{{item.id}}" aria-label="Check item if it is done" {% if item.status %}
-                checked value="clicked" {% endif %}>
+                checked {% endif %}>
             </div>
           </div>
           <input type="text" class="form-control" aria-label="Item with a checkbox" readonly value="{{ item.task }}">

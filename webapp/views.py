@@ -52,6 +52,7 @@ def itemsView(request):
     listType = models.List.objects.get(id=listId)
 
     content = {}
+    content["items"] = models.Item.objects.filter(type=listType)
 
     print(request.POST)
 
@@ -66,10 +67,13 @@ def itemsView(request):
             content["messageType"] = "warning"
 
     if "saveItems" in request.POST:
-        pass
+        for item in content["items"]:
+            if request.POST.get("c" + str(item.id)) == "on":
+                models.Item.objects.filter(id=item.id).update(status=True)
+            else:
+                models.Item.objects.filter(id=item.id).update(status=False)
 
     content["items"] = models.Item.objects.filter(type=listType)
-
     return render(request, "items.html", content)
 
 
