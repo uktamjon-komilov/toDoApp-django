@@ -48,7 +48,20 @@ def listView(request):
 
 
 def itemsView(request):
-    pass
+    listId = request.GET["listid"]
+    listType = models.List.objects.get(id=listId)
+
+    content = {}
+
+    if "newItemName" in request.POST:
+        newItemName = request.POST["newItemName"]
+        models.Item(task=newItemName, type=listType).save()
+        content["message"] = "The item has been added!"
+        content["messageType"] = "success"
+
+    content["items"] = models.Item.objects.filter(type=listType)
+
+    return render(request, "items.html", content)
 
 
 def edit(request):

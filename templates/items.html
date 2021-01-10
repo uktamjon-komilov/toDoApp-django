@@ -5,6 +5,7 @@
 <div class="container">
 
   <div class="row justify-content-center mt-3">
+
     <div class="col-6">
 
       {% if message %}
@@ -17,11 +18,13 @@
       </div>
       {% endif %}
 
+      <a href="/" class="float-right mb-3">Back to the lists</a>
+
       {% for item in items %}
       <div class="input-group my-2">
         <div class="input-group-prepend">
           <div class="input-group-text">
-            <input type="checkbox" aria-label="Check item if it is done" {% if item.status %} {{ checked }} {% endif %}>
+            <input type="checkbox" aria-label="Check item if it is done" {% if item.status %} checked {% endif %}>
           </div>
         </div>
         <input type="text" class="form-control" aria-label="Item with a checkbox" readonly value="{{ item.task }}">
