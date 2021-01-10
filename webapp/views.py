@@ -55,9 +55,13 @@ def itemsView(request):
 
     if "newItemName" in request.POST:
         newItemName = request.POST["newItemName"]
-        models.Item(task=newItemName, type=listType).save()
-        content["message"] = "The item has been added!"
-        content["messageType"] = "success"
+        if newItemName != "":
+            models.Item(task=newItemName, type=listType).save()
+            content["message"] = "The item has been added!"
+            content["messageType"] = "success"
+        else:
+            content["message"] = "The item can't be empty!"
+            content["messageType"] = "warning"
 
     content["items"] = models.Item.objects.filter(type=listType)
 
